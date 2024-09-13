@@ -17,7 +17,7 @@ weather_router = APIRouter()
 async def get_weather_by_city_id(city_id: int, request: Request) -> Dict:
     db_generator = get_db()
     db_session = next(db_generator)  # Get the session from the generator
-    
+
     city_name = await get_city_name_by_id(db=db_session, city_id=city_id)
     url = API_URL.format(API_KEY=API_KEY, city_name=city_name)
     async with httpx.AsyncClient() as client:
