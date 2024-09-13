@@ -1,21 +1,14 @@
-from sqlalchemy import create_engine, Column, Integer, String, Float
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import Column, Integer, String, Float
 import pandas as pd
-import openpyxl
-
-# from settings import db_config
-import os
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import relationship
-
 import dotenv
+import queries
+from settings import get_db
+
 
 dotenv.load_dotenv()
 
-from settings import Base, DATABASE_URI
+from settings import Base
 
 """Database connection configuration. """
 
@@ -35,7 +28,11 @@ class City(Base):
 
 def create_cities(session):
     """List of cities to insert."""
-
+    
+    # Check if cities are already in db
+    if len(queries.get_cities(session)) > 0:
+        return   
+    
     cities = pd.read_excel("app/models/cities.xlsx")
     cities.columns = ["name", "longitude", "latitude", "country"]
 

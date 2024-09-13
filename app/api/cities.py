@@ -16,6 +16,6 @@ cities_router = APIRouter()
 @cities_router.get("/cities/", response_model=List[CityGet], tags=["Cities"])
 async def all_cities(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     db_cities = get_cities(db=db, skip=skip, limit=limit)
-    if db_cities is None:
+    if not db_cities:
         raise HTTPException(status_code=404, detail="Cities are not found")
     return db_cities

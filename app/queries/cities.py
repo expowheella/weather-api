@@ -1,17 +1,22 @@
 from sqlalchemy.orm import Session
 import models
-import schemas
 
 
 """Cities"""
 
 
 def get_cities(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(models.City).offset(skip).limit(limit).all()
+    cities = db.query(models.City).offset(skip).limit(limit).all()
+    if cities:
+        return cities
+    return
 
 
 async def get_city_name_by_id(db: Session, city_id: int):
-    return db.query(models.City).filter(models.City.city_id == city_id).first().name
+    city = db.query(models.City).filter(models.City.city_id == city_id).first()
+    if city:
+        return city.name
+    return
 
 
 async def get_history(db: Session):
@@ -23,4 +28,6 @@ async def get_history(db: Session):
         .limit(5)
         .all()
     )
-    return data
+    if data:
+        return data
+    return

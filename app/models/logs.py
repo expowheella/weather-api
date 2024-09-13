@@ -1,27 +1,16 @@
-from sqlalchemy import create_engine, Column, Integer, String, Float
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-import pandas as pd
-import openpyxl
-
-# from settings import db_config
-import os
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-import dotenv
+from sqlalchemy import Column, Integer, String
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, JSON
 from sqlalchemy.orm import relationship
-
 from settings import Base
 from datetime import datetime
 import pytz
 from datetime import datetime
+import dotenv
 
 
 dotenv.load_dotenv()
 
-from settings import Base, DATABASE_URI
+from settings import Base
 
 """Timezone settings
 """

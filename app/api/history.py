@@ -16,6 +16,6 @@ history_router = APIRouter()
 @history_router.get("/history/", response_model=List[LogsGet], tags=["History"])
 async def get_recent_history(db: Session = Depends(get_db)):
     db_cities = await get_history(db=db)
-    if db_cities is None:
+    if not db_cities:
         raise HTTPException(status_code=404, detail="Cities are not found")
     return db_cities
