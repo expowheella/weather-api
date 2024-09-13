@@ -13,5 +13,25 @@ services:
       - "postgres_db:/var/lib/postgresql/data"
     restart: always
 
+  app: 
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - POSTGRES_DB=ra2
+      - POSTGRES_USER=bulat
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+    volumes:
+      - /var/log/app/main:/var/log/app/
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+
 volumes:
   postgres_db:
